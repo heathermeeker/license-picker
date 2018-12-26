@@ -1,0 +1,403 @@
+<!––This script is licensed under AGPL version 3.0 https://opensource.org/licenses/AGPL-3.0 
+Copyright 2018 Heather Meeker
+Please do not attribute any changed script content or logic to me.  A respectful reminder: Licensing terms and conditions are not the same as plagiarism rules.-->
+
+<h3>Welcome to my open source license picker.  This script helps you choose an open source license to apply to your own software based on a few questions.  Ready?  Let’s begin…</h3>
+
+
+<div id='initialdisplay'>
+
+<h3>Please answer the following three questions:</h3>
+
+<h3>Purpose of your code release:</h3>
+
+<form id="purposeForm">
+  <input type="radio" name="getpurpose" value="publicdomain" >I want everyone to be able to use my code with no restrictions and I expect nothing in return.<br>
+  <input type="radio" name="getpurpose" value="permissive"  >I want to maximize adoption of my code, so I can sell hardware, compatible software, or other services.  I don't care if my competitors use my code in their proprietary products.<br>
+  <input type="radio" name="getpurpose" value="copyleft" checked>I want everyone to be able to use my code as long as they share source code.<br>
+    <input type="radio" name="getpurpose" value="copyleft" >I want a dual licensing business: anyone who will not share source code should pay me for a license.<br>
+  <input type="radio" name="getpurpose" value="proprietary" >I want everyone to be able to use my code only for non-commercial purposes.<br>
+</form>
+
+
+<h3>Patent Position:</h3>
+
+
+<form id="patentForm">
+  <input type="radio" name="getpatents" value="patentgrant" checked>I am seeking, or intend to seek, patents that read on my software.<br>
+  <input type="radio" name="getpatents" value="nopatents">I am against software patents.<br>
+  <input type="radio" name="getpatents" value="nopatents" >I don’t have any patents, and don’t intend to seek them. <br>
+<input type="radio" name="getpatents" value="nopatents" >I don’t know/don't care. <br>
+
+
+</form>
+
+
+<h3>Interaction with Linux:</h3>
+
+
+<form id="linuxForm">
+  <input type="radio" name="getlinux" value="linuxyes">I want my software to be useable in the Linux kernel.<br>
+  <input type="radio" name="getlinux" value="linuxno">I don’t need my software to be useable in the Linux kernel. <br>
+ <input type="radio" name="getlinux" value="linuxno" checked >I don’t know/don't care. <br>
+
+
+</form>
+
+<br>
+
+<form id="Step1" >
+<button type="button" onclick=DoIt()>Next</button>
+</form> 
+
+</div>
+<div id='permissivedisplay'>
+<p>
+<font color="red">
+You need a permissive license.
+</font>
+</div>
+
+
+<div id='patentdisplay'>
+<p>
+<font color="red">
+You need a license with patent terms.
+</font>
+</div>
+
+
+<div id='linuxdisplay'>
+<p>
+<font color="red">
+You need a license that is compatible with GPL2.
+</font>
+</div>
+
+
+<div id='copyleftdisplay'>
+<p>
+<font color="red">
+You need a copyleft license.
+</font>
+<br>
+</div>
+
+
+<div id=copyleftdiv>
+Please answer the following questions:<p>
+
+<h3>Program or Library:</h3>
+
+<form id="libraryForm">
+  <input type="radio" name="getlibrary" value="LGPL" >My software is a library intended for use by other programs.<br>
+  <input type="radio" name="getlibrary" value="GPL" checked >My software is an entire program. <br>
+
+</form>
+
+<h3>Consumer Electronics:</h3>
+
+
+<form id="IOTForm">
+ <input type="radio" name="getIOT" value="IOT" >My software needs to be useful in consumer electronics.<br>
+  <input type="radio" name="getIOT" value="noIOT" checked>My software does not need to be useful in consumer electronics.<br>
+<input type="radio" name="getIOT" value="noIOT">I don't know/don't care. </form>
+
+<h3>Distribution:</h3>
+
+
+<form id="distributionForm">
+  <input type="radio" name="getdistribution" value="distributed" checked>My software is the kind that others are likely to distribute.<br>
+  <input type="radio" name="getdistribution" value="saas" >My software is the kind that others will use (including local or SaaS) but don't need to distribute. </form>
+</form>
+
+<form id="Step2" >
+<button type="button" onclick=DoCopyleft()>Next</button>
+
+</form> 
+
+</div>
+
+<div id='BSDresult'>
+<p>
+<font color="red" >
+You picked BSD/MIT. These are simple licenses that are compatible with almost any other license, maximizing downstream adoption.  They have no patent grants -- but you don't need those.
+</font>
+<br>
+</div>
+
+
+<div id='Apacheresult'>
+<p>
+<font color="red">
+You picked Apache 2.0.  This is a permissive licenses that is compatible is compatible with many other licenses, including proprietary licenses. 
+</font>
+</div>
+
+<div id='MPLresult'>
+<p>
+<font color="red">
+You picked Mozilla Public License 2.0. This license is compatible with GPL2, because it specifically allows re-licensing under GPL2.  (See the provision in MPL2 on compatible licenses.) It also contains an express patent license.  It is a "weak copyleft" license that allows licensees to use the licensed code as a plug-in to proprietary code.
+</font>
+</div>
+
+
+<div id='GPL2result'>
+<p>
+<font color="red">
+You picked GPL version 2 or later.  GPL is appropriate for whole programs, or for libraries if you want to deploy a dual licensing model.  This license contains no express patent grant.  It is compatible with GPLv3.  However, licensing under GPLv3 only would limit the ability of consumer electronics developers from using your code, so giving them the GPL2 option is helpful.
+</font>
+</div>
+
+
+<div id='LGPL2.1result'>
+<p>
+<font color="red">
+You picked LGPL version 2.1 or later.  LGPL is appropriate for libraries, particularly dynamically linked libraries, which LGPL allows to be combined with proprietary application.  This license contains no express patent grant.  It is compatible with GPL 2 or 3, and LGPL3.
+</font>
+</div>
+
+
+<div id='GPL3result'>
+<p>
+<font color="red">
+You picked GPL version 3.  GPL is appropriate for whole programs, or for libraries if you want to deploy a dual licensing model.  This license contains an express patent grant. Licensing under GPLv3 only will limit the ability of consumer electronics developers from using your code, but you indicated that this is not a goal for you.
+</font>
+</div>
+
+<div id='LGPL3result'>
+<p>
+<font color="red">
+You picked LGPL version 3.  LGPL is appropriate for libraries.  This license contains an express patent grant. Licensing under LGPLv3 only will limit the ability of consumer electronics developers from using your code, but you indicated that this is not a goal for you.
+</font>
+</div>
+
+<div id='AGPLresult'>
+<p>
+<font color="red">
+You picked Affero GPL version 3. It is the only commonly used license that will discourage competitors from using your code in a SaaS implementation. It contains an express patent license and other provisions of GPL3, including provisions that will make your software difficult to use in consumer electronics.
+</font>
+</div>
+
+
+<div id='proprietaryresult'>
+<p>
+<font color="red">
+You picked a proprietary license.  Open source will not work for your code, because open source licenses cannot contain field restrictions like non-commercial.  At this time there is no standard software license with these attributes, but Creative Commons NC is a general copyright license with a non-commercial restriction.
+</font>
+</div>
+
+
+<div id='publicdomainresult'>
+<p>
+<font color="red">
+You picked public domain.  The most popular public domain dedication is Creative Commons 0, which you can find here:  <a href=" "> https://creativecommons.org/share-your-work/public-domain/cc0/.</a>
+</font>
+</div>
+
+
+<div id='patentresult'>
+<p>
+<font color="red">
+If you have patents to protect, you have a strategic choice between a license with an express patent grant and one that is silent. Most patentees prefer an express patent grant and defensive termination provision, because they give your users and you more certainty about handling of your patents.  Releasing code under an open source license can significantly reduce your ability to enforce patents that read on that code, regardless of the license you choose.  You should make sure you understand this trade-off before doing your code release--talk to a lawyer if you have questions.
+</font>
+</div>
+
+<div id='resultdisplay'>
+
+<p>
+<font color="purple">
+Thanks for using this license picker.  I hope you found it useful and thought-provoking.  It is not legal advice.  If you want to try again, re-load this page. If you want to know more about how the picker works, take a look <a href="https://heathermeeker.com/about-the-license-picker/">here</a>.
+<br>
+</font>
+</div>
+
+<script>
+
+document.getElementById("copyleftdiv").style.display = "none";
+document.getElementById("permissivedisplay").style.display = "none";
+document.getElementById("copyleftdisplay").style.display = "none";
+document.getElementById("resultdisplay").style.display = "none";
+document.getElementById("BSDresult").style.display = "none";
+document.getElementById("Apacheresult").style.display = "none";
+document.getElementById("MPLresult").style.display = "none";
+document.getElementById("GPL2result").style.display = "none";
+document.getElementById("GPL3result").style.display = "none";
+document.getElementById("LGPL3result").style.display = "none";
+document.getElementById("LGPL2.1result").style.display = "none";
+document.getElementById("AGPLresult").style.display = "none";
+document.getElementById("proprietaryresult").style.display = "none";
+document.getElementById("publicdomainresult").style.display = "none";
+document.getElementById("patentdisplay").style.display = "none";
+document.getElementById("patentresult").style.display = "none";
+document.getElementById("linuxdisplay").style.display = "none";
+
+
+function DoIt() {
+
+//get the values from the radio button sets
+
+var purpose     = getRadioVal(document.getElementById("purposeForm"), 'getpurpose');
+var patents     = getRadioVal(document.getElementById("patentForm"), 'getpatents');
+var linux       = getRadioVal(document.getElementById("linuxForm"), 'getlinux');
+
+
+if (purpose == "proprietary") 
+{
+document.getElementById("initialdisplay").style.display = "none";
+document.getElementById("proprietaryresult").style.display = "initial";
+}
+
+if (purpose == 'publicdomain') 
+{
+document.getElementById("initialdisplay").style.display = "none";
+document.getElementById("publicdomainresult").style.display = "initial";
+}
+
+if (purpose == 'permissive') 
+{
+document.getElementById("initialdisplay").style.display = "none";
+document.getElementById("permissivedisplay").style.display = "initial";
+
+if (patents =='patentgrant') 
+document.getElementById("patentdisplay").style.display = "initial";
+
+
+if (linux=='linuxyes') 
+document.getElementById("linuxdisplay").style.display = "initial";
+
+
+if (patents =='patentgrant' && linux=='linuxno') 
+{
+document.getElementById("Apacheresult").style.display = "initial";
+}
+
+
+if (patents =='patentgrant' && linux=='linuxyes') 
+{
+alert('You expressed a preference for a permissive license, the need to manage patents, and compatibility with the Linux kernel.  There is no  license that meets all these criteria.  However, MPL2 is a good compromise.  While it is not permissive, it is a weak copyleft license -- encouraging adoption more than a strong copyleft license like GPL.  It meets your other criteria.');
+document.getElementById("MPLresult").style.display = "initial";
+}
+
+
+if (patents =='nopatents') 
+document.getElementById("BSDresult").style.display = "initial";
+
+
+if (patents =='patentgrant') 
+document.getElementById("patentresult").style.display = "initial";
+
+
+EndIt();
+
+
+} //end permissive
+
+
+if (purpose == 'copyleft') 
+{
+document.getElementById("initialdisplay").style.display = "none";
+document.getElementById("copyleftdisplay").style.display = "initial";
+document.getElementById("copyleftdiv").style.display = "initial";
+
+
+} // end copyleft
+
+//end
+
+}
+
+
+function DoCopyleft()
+{
+var patents     = getRadioVal(document.getElementById("patentForm"), 'getpatents');
+var linux       = getRadioVal(document.getElementById("linuxForm"), 'getlinux');
+var GPLorLGPL     = getRadioVal(document.getElementById("libraryForm"), 'getlibrary');
+var IOT = getRadioVal(document.getElementById("IOTForm"), 'getIOT');
+var distribution = getRadioVal(document.getElementById("distributionForm"), 'getdistribution');
+
+
+//alert (patents+linux+GPLorLGPL+Version2or3+distribution);
+
+
+document.getElementById("copyleftdiv").style.display = "none";
+
+
+
+
+if (distribution =='saas') 
+//handle the conflicting cases and end them
+{
+var doesnotcompute=0; //this flag says whether there is a conflict resolved by AGPL
+if (linux=='linuxyes') {doesnotcompute = 1; alert('There is no license that will discourage competitors from SaaS use and provides Linux compatiblity.  The license picker will prioritize the SaaS requirement over others and pick AGPL.')}
+if (IOT == "IOT") {doesnotcompute = 1; alert('There is no license that will discourage competitors from SaaS use and provides IOT compatiblity -- but perhaps you should re-run the license picker, because the need for use in both IOT and SaaS is unusual.  The license picker will prioritize the SaaS requirement over others and pick AGPL.')}
+if (GPLorLGPL == "LGPL") {doesnotcompute = 1; alert('There is no license that will discourage competitors from SaaS use and facilitate use of your software as a library.  The license picker will prioritize the SaaS requirement over others and pick AGPL.  Some licensors in your position provide additional permissions to allow use as a library.')}
+if (doesnotcompute= 1) {document.getElementById("AGPLresult").style.display = "initial";
+EndIt();}
+}
+
+
+if (distribution == 'saas') {
+document.getElementById("AGPLresult").style.display = "initial"; if (patents =='patentgrant') 
+document.getElementById("patentresult").style.display = "initial"; EndIt();}
+
+
+if (patents=='nopatents') {
+if (GPLorLGPL == "GPL") {document.getElementById("GPL2result").style.display = "initial"; EndIt()}
+if (GPLorLGPL == "LGPL") {document.getElementById("LGPL2.1result").style.display = "initial";EndIt()}
+}
+
+//All SaaS and patentless cases eliminated, all remaining cases are distributed, requires patent grant, remaining unknowns are IOT, Linux, G/LGPL
+
+
+//All IOT cases must be MPL due to anti-tivoization in GPL3
+if (patents=='patentgrant' && IOT == "IOT") {
+document.getElementById("MPLresult").style.display = "initial"; 
+EndIt();}
+
+
+//Remaining unknowns are Linux and G/LGPL
+
+
+if (patents=='patentgrant' && linux=='linuxno' && GPLorLGPL == "GPL") 
+document.getElementById("GPL3result").style.display = "initial";
+
+
+if (patents=='patentgrant' && linux=='linuxno' && GPLorLGPL == "LGPL") 
+document.getElementById("LGPL3result").style.display = "initial";
+
+
+if (patents=='patentgrant' && linux=='linuxyes') 
+document.getElementById("MPLresult").style.display = "initial"; 
+
+
+EndIt();
+
+
+}
+
+function EndIt() {
+var patents     = getRadioVal(document.getElementById("patentForm"), 'getpatents');
+if (patents =='patentgrant') document.getElementById("patentresult").style.display = "initial"; 
+document.getElementById("resultdisplay").style.display = "initial";
+end;
+}
+
+function getRadioVal(form, name) {
+    var val;
+    // get list of radio buttons with specified name
+    var radios = form.elements[name];
+    
+    // loop through list of radio buttons
+    for (var i=0, len=radios.length; i<len; i++) 
+    {
+        if (radios[i].checked )
+        {
+            val = radios[i].value; // if so, hold its value in val
+            break;} // and break out of for loop
+    }
+    
+    return val; // return value of checked radio or undefined if none checked
+}
+
+</script>
